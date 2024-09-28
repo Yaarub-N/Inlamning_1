@@ -1,5 +1,6 @@
 ﻿
 
+using Newtonsoft.Json;
 using Resources.Models;
 using Resources.Response;
 
@@ -7,9 +8,11 @@ namespace Resources.Services
 {
     public class ProductService
     {
+        private static readonly string _filePath = Path.Combine(AppContext.BaseDirectory, "file.json");
+        private readonly FileService _fileService = new FileService(_filePath);
         private List<Product> _products = new List<Product>();
-        public ResultResponse AddToList(Product product)
 
+        public ResultResponse AddToList(Product product)
         {
 
             try
@@ -29,9 +32,10 @@ namespace Resources.Services
                     {
 
                         _products.Add(product);
+                        var json = JsonConvert.SerializeObject(_products, Formatting.Indented);
+                        _fileService.SaveToFile(json);
 
-
-                        return ResultResponse.Succeeded();
+                        return new ResultResponse { Success = true };
 
 
                     }
@@ -47,7 +51,19 @@ namespace Resources.Services
         public IEnumerable<Product> GetAllProductService()
         {
 
+            try
+            {
+                var product = _fileService.GetFromFile();
+
+                if (!string.IsNullOrEmpty(product))
+                {
+                    _products = JsonConvert.DeserializeObject<List<Product>>(product)!;
+                }
+
+            }
+            catch { }
             return _products;
+
 
 
         }
