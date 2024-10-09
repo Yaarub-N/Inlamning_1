@@ -1,7 +1,4 @@
-﻿
-
-using Resources.Models;
-using Resources.Response;
+﻿using Resources.Models;
 using Resources.Services;
 
 namespace Inlamning1.Menus;
@@ -13,7 +10,7 @@ public class ProductMenu
 
     public void CreatProduct()
     {
-
+        Console.Clear();
         Product product = new Product();
         Category category = new Category();
         product.Category = category;
@@ -28,7 +25,7 @@ public class ProductMenu
 
         Console.WriteLine("Enter product unit");
         product.Unit = _productUnitMenu.Unit(product);
-      
+
         product.Quantity = ReadAndValidateDecimal("Enter product quantity: ");
 
         Console.WriteLine("Enter product category ID: ");
@@ -38,8 +35,16 @@ public class ProductMenu
         category.CategoryName = Console.ReadLine()!;
 
         var result = _productService.AddToList(product);
+        if (result.Success)
+        {
+            Console.WriteLine($"\nProduct was created successfully.");
+        }
+        else
+        {
+            Console.WriteLine($"\n{result.Message}");
+        }
 
-        Console.WriteLine(result.Message);
+
 
         Console.WriteLine("Press any key to continue.");
         Console.ReadLine();
@@ -87,11 +92,138 @@ public class ProductMenu
         {
             Console.WriteLine("No product in list");
         }
-       
+
 
         Console.WriteLine("\nPress any key to continue.");
         Console.ReadKey();
     }
+
+
+    public void ViewOneProduct()
+    {
+
+        var productsList = _productService.GetAllProductService();
+
+        Console.Clear();
+        Console.WriteLine("View One Product\n");
+        Console.Write("Enter product ID to search: ");
+        string search = Console.ReadLine()!.Trim();
+
+        if (productsList.Any())
+        {
+            var product = productsList.FirstOrDefault(p => p.Id.ToString() == search);
+
+            if (product != null)
+            {
+                Console.Clear();
+                Console.WriteLine("Product ID:".PadRight(19) + $"{product.Id}" + "\nName: ".PadRight(20) + $"{product.ProductName}" + "\nPrice: ".PadRight(20) + $"{product.price:C}" + "\nQuantity: ".PadRight(20) + $"{product.Quantity} {product.Unit}" + "\nCategory ID: ".PadRight(20) + $"{product.Category.CategoryId}" + "\nCategory Name: ".PadRight(20) + $"{product.Category.CategoryName}\n");
+            }
+            else
+            {
+                Console.WriteLine("No product was found.");
+            }
+        }
+        else
+        {
+            Console.WriteLine("No products in list.");
+        }
+
+        Console.WriteLine("\nPress any key to continue.");
+        Console.ReadKey();
+    }
+
+
+
+    // Denna metod hanterar all användarinteraktion
+    public void DeleteProduct()
+    {
+        Console.Clear();
+        Console.WriteLine("Delete a Product\n");
+        Console.Write("Enter product ID : ");
+        string search = Console.ReadLine()!.Trim();
+
+        // Anropa affärslogiken i ProductService
+        var result = _productService.DeleteProduct(search);
+        ;
+        if (result.Success)
+        {
+            Console.WriteLine("Product successfully deleted.");
+        }
+        else
+        {
+            Console.WriteLine("No product was found.");
+        }
+
+        Console.WriteLine("\nPress any key to continue.");
+        Console.ReadKey();
+    }
+
+    public void updateProduct()
+    {
+
+        var productsList = _productService.GetAllProductService();
+
+        Console.Clear();
+        Console.WriteLine("Update a Product\n");
+        Console.Write("Enter product ID to search: ");
+        string search = Console.ReadLine()!.Trim();
+
+        if (productsList.Any())
+        {
+            var product = productsList.FirstOrDefault(p => p.Id.ToString() == search);
+
+            if (product != null)
+            {
+                Console.Clear();
+                Console.WriteLine("Product ID:".PadRight(19) + $"{product.Id}" + "\nName: ".PadRight(20) + $"{product.ProductName}" + "\nPrice: ".PadRight(20) + $"{product.price:C}" + "\nQuantity: ".PadRight(20) + $"{product.Quantity} {product.Unit}" + "\nCategory ID: ".PadRight(20) + $"{product.Category.CategoryId}" + "\nCategory Name: ".PadRight(20) + $"{product.Category.CategoryName}\n");
+               
+            
+               
+                Console.WriteLine("Update the product\n");
+
+                Console.WriteLine("Write product name: ");
+                product.ProductName = Console.ReadLine()!;
+
+                product.price = ReadAndValidateDecimal("Enter product price: ");
+
+                Console.WriteLine("Enter product unit");
+                product.Unit = _productUnitMenu.Unit(product);
+
+                product.Quantity = ReadAndValidateDecimal("Enter product quantity: ");
+
+                Console.WriteLine("Enter product category ID: ");
+                product.Category.CategoryId = Console.ReadLine()!;
+
+                Console.WriteLine("Enter product category Name: ");
+                product.Category.CategoryName = Console.ReadLine()!;
+
+                _productService.Update(product);
+
+              
+
+            }
+            else
+            {
+                Console.WriteLine("No product was found.");
+            }
+        }
+        else
+        {
+            Console.WriteLine("No products in list.");
+        }
+
+        Console.WriteLine("\nPress any key to continue.");
+        Console.ReadKey();
+    }
+
+
 }
+
+
+
+
+
+
+
 
 

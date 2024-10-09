@@ -15,8 +15,10 @@ namespace Inlamning1.Menus
                 Console.WriteLine("1.Creat product");
                 Console.WriteLine("2.View all products");
                 Console.WriteLine("3.View One product");
-                Console.WriteLine("4.Delete all products");
-                Console.WriteLine("5.Exit");
+                Console.WriteLine("4.Delete a product");
+                Console.WriteLine("5.Update a product");
+
+                Console.WriteLine("6.Exit");
 
                 Console.WriteLine("\nEnter your choice");
 
@@ -31,10 +33,15 @@ namespace Inlamning1.Menus
                         _productMenu.ViewAllProducts();
                         break;
                     case "3":
+                        _productMenu.ViewOneProduct();
                         break;
                     case "4":
+                        _productMenu.DeleteProduct();
                         break;
                     case "5":
+                        _productMenu.updateProduct();
+                        break;
+                    case "6":
                         Environment.Exit(0);
                         break;
                     default:

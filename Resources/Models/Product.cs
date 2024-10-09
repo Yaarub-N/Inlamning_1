@@ -10,4 +10,5 @@ public class Product
     public string Unit { get; set; }=null!;
     public decimal Quantity { get; set; }
     public Category Category { get; set; } = null!;
+   
 }

@@ -1,32 +1,28 @@
 ﻿
+using Resources.Interface;
 using Resources.Response;
 using System.Reflection.Metadata.Ecma335;
 
 namespace Resources.Services;
 
-internal class FileService
+public class FileService(string path) : IFileService
 {
-    private readonly string _path;
-
-    public FileService(string path)
-    {
-        _path = path;
-    }
+    private readonly string _path = path;
 
     public ResultResponse SaveToFile(string product)
     {
         try
         {
-            if (File.Exists(_path))
-            {
 
-                using var sw = new StreamWriter(_path);
-                sw.WriteLine(product);
-                return ResultResponse.Succeeded();
-            }
+
+
+            using var sw = new StreamWriter(_path);
+            sw.WriteLine(product);
+            return new ResultResponse { Success=true};
+
         }
         catch (Exception) { }
-        return ResultResponse.Failed();
+        return new ResultResponse { Success = false };
     }
 
 
@@ -45,5 +41,5 @@ internal class FileService
         catch (Exception) { }
         return null!;
     }
-    
+
 }
