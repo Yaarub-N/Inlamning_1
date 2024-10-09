@@ -32,7 +32,7 @@ public class ProductUnitMenu
                 product.Unit = "m";
                 break;
             default:
-                Console.WriteLine("invalid value");
+                Console.Write("invalid value");
                 break;
 
         }
