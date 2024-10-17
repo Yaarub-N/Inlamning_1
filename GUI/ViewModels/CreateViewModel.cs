@@ -48,16 +48,16 @@ public partial class CreateViewModel : ObservableObject
             InvalidNamn = string.IsNullOrWhiteSpace(Product.ProductName);
             InvalidPrice = Product.price <= 0;
             if (!InvalidNamn && !InvalidPrice) 
-            {
+    {
 
 
 
-                var result = _productService.AddToList(Product);
-                if (result.Success)
-                {
+        var result = _productService.AddToList(Product);
+        if (result.Success)
+        {
 
-                    var viewModel = _serviceProvider.GetRequiredService<MainViewWindowModel>();
-                    viewModel.CurrentViewModel = _serviceProvider.GetRequiredService<OverViewModel>();
+            var viewModel = _serviceProvider.GetRequiredService<MainViewWindowModel>();
+            viewModel.CurrentViewModel = _serviceProvider.GetRequiredService<OverViewModel>();
 
                 }
             }

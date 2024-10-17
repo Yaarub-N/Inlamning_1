@@ -34,7 +34,7 @@ namespace GUI.Views
 
             if (decimal.TryParse(input, out decimal price) ){
 
-                if (price<=0)
+                if (price.GetType() != typeof(decimal))
                 {
                     TextBlock_Price.Text = "Invalid price";
                     TextBlock_Price.Foreground = new SolidColorBrush(Colors.Red);

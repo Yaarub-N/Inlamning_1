@@ -42,22 +42,19 @@ public partial class EditViewModel:ObservableObject
 
             if (!InvalidNamn && !InvalidPrice)
             {
-                var result = _productService.Update(Product);
-                if (result.Success)
-                {
+        var result = _productService.Update(Product);
+        if (result.Success)
+        {
 
-                    var viewModel = _serviceProvider.GetRequiredService<MainViewWindowModel>();
-                    viewModel.CurrentViewModel = _serviceProvider.GetRequiredService<OverViewModel>();
-                }
+            var viewModel = _serviceProvider.GetRequiredService<MainViewWindowModel>();
+            viewModel.CurrentViewModel = _serviceProvider.GetRequiredService<OverViewModel>();
+        }
             }
-
-
         }
         catch
         {
            
         }
-      
     }
     [RelayCommand]
     public void Close()

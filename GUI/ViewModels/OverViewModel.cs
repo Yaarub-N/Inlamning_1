@@ -31,8 +31,11 @@ public partial class OverViewModel : ObservableObject
         var viewModel = _serviceProvider.GetRequiredService<MainViewWindowModel>();
         viewModel.CurrentViewModel = _serviceProvider.GetRequiredService<CreateViewModel>();
     }
-    [RelayCommand]
 
+
+    //testa tabort parameterena
+
+    [RelayCommand]
     public void Edit(Product product)
     {
         var editViewModel= _serviceProvider.GetRequiredService<EditViewModel>();

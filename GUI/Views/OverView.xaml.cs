@@ -25,9 +25,17 @@ namespace GUI.Views
             InitializeComponent();
         }
 
-        private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void Button_MouseUp_1(object sender, MouseButtonEventArgs e)
         {
-
+            if (sender is Button button)
+            {
+                MessageBox.Show("MouseUp Event Triggered");
+                // Change the button's background to red
+                button.Background = new SolidColorBrush(Colors.Red);
+            }
         }
+
+
+
     }
 }

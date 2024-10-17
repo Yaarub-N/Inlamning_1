@@ -22,7 +22,7 @@
 
             <TextBlock Text="Product price"  x:Name="TextBlock_Price"/>
             <TextBox   Text="{Binding Product.price , UpdateSourceTrigger=PropertyChanged}" Padding=" 5" Margin="0,5,0,10" Name="TextBox_Price" KeyUp="TextBox_Price_KeyUp"/>
-          
+           
 
             <TextBlock Text="Quantity"/>
             <TextBox Text="{Binding Product.Quantity}" Padding=" 5" Margin="0,5,0,10"/>

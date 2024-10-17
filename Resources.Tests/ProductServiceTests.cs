@@ -12,21 +12,22 @@ namespace Resources.Tests
     {
         private readonly Mock<IFileService> _fileServiceMock;
         private readonly Mock<IProductService> _productServiceMock;
-        private readonly ProductService _productService; // Testa ProductService direkt
+        private readonly ProductService _productService;
 
         public ProductServiceTests()
         {
             _fileServiceMock = new Mock<IFileService>();
+            _productService = new ProductService(_fileServiceMock.Object);
             _productServiceMock = new Mock<IProductService>();
-            _productService = new ProductService(_fileServiceMock.Object); // Instansiera ProductService med mockad IFileService
+
         }
 
         [Fact]
         public void AddAProduct__ShouldAdd_AProductAnd__ReturnTrue()
         {
-            // Arrange
+            // arrange
             var product = new Product { ProductName = "Tomat", price = 20 };
-            _fileServiceMock.Setup(s => s.SaveToFile(It.IsAny<string>())).Returns(ResultResponse.Succeeded());
+            _fileServiceMock.Setup(s => s.SaveToFile(It.IsAny<string>())).Returns(ResultResponse.Succeeded);
 
             // Act
             ResultResponse result = _productService.AddToList(product);
@@ -40,7 +41,7 @@ namespace Resources.Tests
         [Fact]
         public void AddAProductWhithAnEmptyName__ShouldAdd_AProductAnd__ReturnFalse()
         {
-            // Arrange
+            // arrange
             var product = new Product { ProductName = "", price = 20, };
             _fileServiceMock.Setup(s => s.SaveToFile(It.IsAny<string>())).Returns(ResultResponse.Succeeded());
 
@@ -55,20 +56,20 @@ namespace Resources.Tests
         [Fact]
         public void GetAllProducts__Should_GetAllProductAnd___ReturnNotNull()
         {
-            
-            // Arrange
+
+            // arrange
             var product = new Product { ProductName = "Tomat", price = 20, };
-         
+
             var products = new List<Product> { product };
-            // Act
+         
             var json = JsonConvert.SerializeObject(products);
             _fileServiceMock.Setup(s => s.GetFromFile()).Returns(json);
 
             // Act
-            var result= _productService.GetAllProductService();
+            var result = _productService.GetAllProductService();
 
             // Assert
-            
+
             Assert.NotNull(result);
             Assert.Contains(result, s => s.ProductName == "Tomat");
         }
@@ -77,11 +78,11 @@ namespace Resources.Tests
         public void REmoveAProduct__Should_RemoveAProductAnd___ReturnTrue()
         {
 
-            // Arrange
-            var product = new Product {Id="1", ProductName = "Tomat", price = 20, };
+            // arrange
+            var product = new Product { Id = "1", ProductName = "Tomat", price = 20, };
 
             var products = new List<Product> { product };
-            // Act
+    
             var json = JsonConvert.SerializeObject(products);
             _fileServiceMock.Setup(s => s.GetFromFile()).Returns(json);
 
@@ -92,41 +93,55 @@ namespace Resources.Tests
 
             Assert.True(result.Success);
 
-            
-            
+
+
         }
-        [Fact]
 
-        public void UpdateAProduct__Should_UpdateAProductAnd___ReturnTrue()
+        // This mock file service is a solution provided by ChatGPT.
+        // It is used to test product updates and file operations without affecting real files.
+        // I am not using Mock in other cases because it wasn't working correctly during testing.
+
+
+        public class MockFileService : IFileService
         {
-          
-            // Arrange
-            var currentProduct = new Product { Id = "1", ProductName = "Tomat", price = 20, };
-            var product=new Product { Id="1", ProductName= "RedBull" , price = 30, };
-            var currentproducts = new List<Product> { currentProduct };
-            var products = new List<Product> { product };
+            private string _fileContent = string.Empty; 
 
+            public string GetFromFile()
+            {
+                
+                return _fileContent;
+            }
+
+            public ResultResponse SaveToFile(string content)
+            {
+                
+                _fileContent = content;
+                return ResultResponse.Succeeded();
+            }
+        }
+
+        [Fact]
+        public void UpdateAProductWithoutMock__Should_UpdateAProductAnd___ReturnTrue()
+        {
+            // arrange
+            var productService = new ProductService(new MockFileService());
+            var currentProduct = new Product { Id = "1", ProductName = "Tomat", price = 20 };
+            productService.AddToList(currentProduct);
+
+            var updatedProduct = new Product { Id = "1", ProductName = "RedBull", price = 50 };
 
             // Act
-            var json = JsonConvert.SerializeObject(currentProduct);
-
-            _fileServiceMock.Setup(s => s.GetFromFile()).Returns(json);
-
-           
-
-            // Act
-            var result = _productService.Update(product);
-            
+            var result = productService.Update(updatedProduct);
 
             // Assert
-
             Assert.True(result.Success);
-            Assert.Equal("RedBull", currentProduct.ProductName);
 
-
-
+           
+            var updatedProducts = productService.GetAllProductService();
+            var updatedProductInList = updatedProducts.FirstOrDefault(p => p.Id == "1");
+            Assert.NotNull(updatedProductInList);
+            Assert.Equal("RedBull", updatedProductInList.ProductName);
+            Assert.Equal(50, updatedProductInList.price);
         }
-
-
     }
 }

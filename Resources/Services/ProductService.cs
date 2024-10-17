@@ -15,6 +15,7 @@ public class ProductService : IProductService
     public ProductService(IFileService fileService)
     {
         _fileService = fileService;
+        GetAllProductService();
     }
 
     private List<Product> _products = [];
@@ -69,7 +70,10 @@ public class ProductService : IProductService
             }
 
         }
-        catch { }
+        catch 
+        {
+        
+        }
         return _products;
 
 
@@ -77,23 +81,28 @@ public class ProductService : IProductService
     }
     public ResultResponse DeleteProduct(string productId)
     {
-       
-        GetAllProductService();
-
-        if (_products.Any())
+        try
         {
-            var product = _products.FirstOrDefault(p => p.Id.ToString() == productId);
 
-            if (product != null)
+
+            GetAllProductService();
+
+            if (_products.Any())
             {
-                _products.Remove(product); 
+                var product = _products.FirstOrDefault(p => p.Id.ToString() == productId);
 
-             
-                UpdateList(); 
+                if (product != null)
+                {
+                    _products.Remove(product);
 
-                return new ResultResponse{Success = true}; 
+
+                    UpdateList();
+
+                    return new ResultResponse { Success = true };
+                }
             }
         }
+        catch{   }
 
         return new ResultResponse { Success = false}; 
     }
@@ -108,30 +117,36 @@ public class ProductService : IProductService
     {
         try
         {
-            
-            var exestingProduct= _products.FirstOrDefault(p => p.Id == product.Id); 
+            GetAllProductService(); // Load the current list of products
 
-            if (exestingProduct==null)
+            // Find the existing product with the same ID
+            var existingProduct = _products.FirstOrDefault(p => p.Id == product.Id);
+
+            if (existingProduct == null) // Use null check
             {
-                return ResultResponse.Failed();
+                return ResultResponse.Failed(); // Product not found
             }
             else
             {
-                _products.Remove(exestingProduct);
-                exestingProduct = product;
-                  _products.Add(exestingProduct);
-                    UpdateList();
+                // Update the existing product's properties
+                existingProduct.ProductName = product.ProductName;
+                existingProduct.price = product.price;
+                existingProduct.Quantity = product.Quantity;
+                existingProduct.Unit = product.Unit;
+                existingProduct.Category = product.Category; // Update other relevant fields
 
-                    return new ResultResponse { Success = true };
+                UpdateList(); // Persist the updated list
+
+                return new ResultResponse { Success = true }; // Indicate the operation was successful
             }
         }
         catch
         {
-            return ResultResponse.Failed();
-
+            return ResultResponse.Failed(); // Handle any exceptions that occur
         }
-
     }
+
+
 
 
 
