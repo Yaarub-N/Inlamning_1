@@ -5,6 +5,7 @@ namespace Resources.Interface
 {
     public interface IProductService
     {
+        Product? CurrentProduct { get; set; }
 
         ResultResponse AddToList(Product product);
         ResultResponse DeleteProduct(string productId);

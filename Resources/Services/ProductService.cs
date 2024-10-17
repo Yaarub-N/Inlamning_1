@@ -73,6 +73,11 @@ public class ProductService : IProductService
         return _products;
 
 
+    public void UpdateList()
+    {
+        var json = JsonConvert.SerializeObject(_products, Formatting.Indented);
+        _fileService.SaveToFile(json);
+    }
 
     }
     public ResultResponse DeleteProduct(string productId)

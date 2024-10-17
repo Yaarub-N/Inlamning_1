@@ -31,7 +31,7 @@
                         <Grid Grid.Column="0" HorizontalAlignment="Stretch">
                             <TextBlock  Text="{Binding ProductName}" FontSize="16" Padding="0,0,10,0"  VerticalAlignment="Center" />
                         </Grid>
-
+                        
 
                         <StackPanel Grid.Column="1" Orientation="Horizontal" >
                             <Button CommandParameter="{Binding .}" 

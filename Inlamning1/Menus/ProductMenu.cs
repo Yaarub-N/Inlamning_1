@@ -54,6 +54,7 @@ public class ProductMenu
 
 
 
+
         Console.WriteLine("Press any key to continue.");
         Console.ReadLine();
 
@@ -101,7 +102,33 @@ public class ProductMenu
         {
             Console.WriteLine("No product in list");
         }
+       
 
+                Console.WriteLine("Enter product unit");
+                product.Unit = _productUnitMenu.Unit(product);
+
+                product.Quantity = ReadAndValidateDecimal("Enter product quantity: ");
+
+                Console.WriteLine("Enter product category ID: ");
+                product.Category.CategoryId = Console.ReadLine()!;
+
+                Console.WriteLine("Enter product category Name: ");
+                product.Category.CategoryName = Console.ReadLine()!;
+
+                _productService.Update(product);
+
+              
+
+            }
+            else
+            {
+                Console.WriteLine("No product was found.");
+            }
+        }
+        else
+        {
+            Console.WriteLine("No products in list.");
+        }
 
         Console.WriteLine("\nPress any key to continue.");
         Console.ReadKey();
