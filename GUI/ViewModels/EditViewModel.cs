@@ -35,10 +35,8 @@ public partial class EditViewModel:ObservableObject
 
         try
         {
-
             InvalidNamn = string.IsNullOrWhiteSpace(Product.ProductName);
             InvalidPrice = Product.price <= 0;
-
 
             if (!InvalidNamn && !InvalidPrice)
             {
@@ -52,16 +50,12 @@ public partial class EditViewModel:ObservableObject
             }
         }
         catch
-        {
-           
-        }
+        {     }
     }
     [RelayCommand]
     public void Close()
-
     {
         var viewModel = _serviceProvider.GetRequiredService<MainViewWindowModel>();
         viewModel.CurrentViewModel = _serviceProvider.GetRequiredService<OverViewModel>();
-
     }
 }

@@ -23,7 +23,6 @@ namespace Inlamning1.Menus
                 Console.WriteLine("3.View One product");
                 Console.WriteLine("4.Delete a product");
                 Console.WriteLine("5.Update a product");
-
                 Console.WriteLine("6.Exit");
 
                 Console.WriteLine("\nEnter your choice");
@@ -33,7 +32,6 @@ namespace Inlamning1.Menus
                 {
                     case "1":
                         _productMenu.CreatProduct();
-
                         break;
                     case "2":
                         _productMenu.ViewAllProducts();

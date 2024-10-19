@@ -1,18 +1,6 @@
-﻿using Resources.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
+﻿using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace GUI.Views
 {
@@ -29,22 +17,12 @@ namespace GUI.Views
         private void TextBox_Price_KeyUp(object sender, KeyEventArgs e)
         {
             var textBox = sender as TextBox;
-
             string input = textBox.Text;
 
             if (decimal.TryParse(input, out decimal price))
             {
-
-                if (price.GetType() != typeof(decimal))
-                {
-                    TextBlock_Price.Text = "Invalid price";
-                    TextBlock_Price.Foreground = new SolidColorBrush(Colors.Red);
-                }
-                else
-                {
-                    TextBlock_Price.Text = "Product price";
-                    TextBlock_Price.Foreground = new SolidColorBrush(Colors.Green);
-                }
+                TextBlock_Price.Text = "Valid price";
+                TextBlock_Price.Foreground = new SolidColorBrush(Colors.Green);
             }
             else
             {
@@ -61,10 +39,8 @@ namespace GUI.Views
 
             if (!string.IsNullOrWhiteSpace(input))
             {
-
                 TextBlock_Name.Text = "Product name";
                 TextBlock_Name.Foreground = new SolidColorBrush(Colors.Green);
-
             }
             else
             {

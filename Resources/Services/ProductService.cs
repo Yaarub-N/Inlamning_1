@@ -9,9 +9,7 @@ namespace Resources.Services;
 
 public class ProductService : IProductService
 {
-
     private readonly IFileService _fileService;
-
     public ProductService(IFileService fileService)
     {
         _fileService = fileService;
@@ -22,14 +20,12 @@ public class ProductService : IProductService
 
     public ResultResponse AddToList(Product product)        
     {
-
         try
         {
             GetAllProductService();
             if (string.IsNullOrEmpty(product.ProductName))
             {
                 return ResultResponse.Failed();
-
             }
             else
             {
@@ -39,54 +35,38 @@ public class ProductService : IProductService
                 }
                 else
                 {
-
                     _products.Add(product);
                     UpdateList();
 
                     return new ResultResponse { Success = true };
-
-
-
                 }
             }
         }
         catch
         {
             return ResultResponse.Failed();
-
         }
-
     }
     public IEnumerable<Product> GetAllProductService()
     {
-
         try
         {
             var product = _fileService.GetFromFile();
-
             if (!string.IsNullOrEmpty(product))
             {
                 _products = JsonConvert.DeserializeObject<List<Product>>(product)!;
             }
-
         }
         catch 
-        {
-        
-        }
+        { }
         return _products;
-
-
-
     }
+
     public ResultResponse DeleteProduct(string productId)
     {
         try
         {
-
-
             GetAllProductService();
-
             if (_products.Any())
             {
                 var product = _products.FirstOrDefault(p => p.Id.ToString() == productId);
@@ -103,7 +83,6 @@ public class ProductService : IProductService
             }
         }
         catch{   }
-
         return new ResultResponse { Success = false}; 
     }
 
@@ -117,38 +96,29 @@ public class ProductService : IProductService
     {
         try
         {
-            GetAllProductService(); // Load the current list of products
-
-            // Find the existing product with the same ID
+            GetAllProductService(); 
             var existingProduct = _products.FirstOrDefault(p => p.Id == product.Id);
 
-            if (existingProduct == null) // Use null check
+            if (existingProduct == null) 
             {
-                return ResultResponse.Failed(); // Product not found
+                return ResultResponse.Failed(); 
             }
             else
             {
-                // Update the existing product's properties
                 existingProduct.ProductName = product.ProductName;
                 existingProduct.price = product.price;
                 existingProduct.Quantity = product.Quantity;
                 existingProduct.Unit = product.Unit;
-                existingProduct.Category = product.Category; // Update other relevant fields
+                existingProduct.Category = product.Category; 
 
-                UpdateList(); // Persist the updated list
+                UpdateList(); 
 
-                return new ResultResponse { Success = true }; // Indicate the operation was successful
+                return new ResultResponse { Success = true }; 
             }
         }
         catch
         {
-            return ResultResponse.Failed(); // Handle any exceptions that occur
+            return ResultResponse.Failed(); 
         }
     }
-
-
-
-
-
-
 }

@@ -10,7 +10,6 @@ public class ProductUnitMenu
     
     public string Unit(Product product)
     {
-        
         Console.WriteLine("1.pcs");
         Console.WriteLine("2.kg");
         Console.WriteLine("3.l");
@@ -34,7 +33,6 @@ public class ProductUnitMenu
             default:
                 Console.Write("invalid value");
                 break;
-
         }
        return product.Unit;
     }

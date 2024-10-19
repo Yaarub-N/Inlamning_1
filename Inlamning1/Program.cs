@@ -28,7 +28,6 @@ class Program
         Host.CreateDefaultBuilder(args)
             .ConfigureServices((context, services) =>
             {
-                // Konfigurera beroenden
                 var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
                 string filePath = Path.Combine(baseDirectory, "product.json");
 
@@ -42,15 +41,11 @@ class Program
 
     public void Run()
     {
-        // Starta host
         _host.StartAsync().Wait();
-
-        // Hämta Menu-tjänsten från DI-container och kör applikationen
         var menu = _host.Services.GetRequiredService<Menu>();
-
         while (true)
         {
-            menu.MainMenu();  // Starta huvudmenyn
+            menu.MainMenu(); 
         }
     }
 }

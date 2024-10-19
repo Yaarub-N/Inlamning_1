@@ -58,19 +58,14 @@ public class ProductMenu
         {
             Console.WriteLine($"Error: {ex.Message}");
         }
-
-
         Console.WriteLine("Press any key to continue.");
         Console.ReadLine();
-
     }
 
     public static decimal ReadAndValidateDecimal(string isValid)
     {
         try
-        {
-
-        
+        {        
         decimal value;
 
         while (true)
@@ -110,15 +105,12 @@ public class ProductMenu
             foreach (Product product in productsList)
             {
                 Console.WriteLine("Product ID:".PadRight(19) + $"{product.Id}" + "\nName: ".PadRight(20) + $"{product.ProductName}" + "\nPrice: ".PadRight(20) + $"{product.price:C}" + "\nQuantity: ".PadRight(20) + $"{product.Quantity} {product.Unit}" + "\nCategory ID: ".PadRight(20) + $"{product.Category.CategoryId}" + "\nCategory Name: ".PadRight(20) + $"{product.Category.CategoryName}\n");
-                
             }
         }
-
         else
         {
             Console.WriteLine("No product in list");
         }
-
         Console.WriteLine("\nPress any key to continue.");
         Console.ReadKey();
         }
@@ -126,7 +118,6 @@ public class ProductMenu
         {
             Console.WriteLine($"Error: {ex.Message}");
         }
-
     }
 
 
@@ -167,28 +158,23 @@ public class ProductMenu
         {
             Console.WriteLine($"Error: {ex.Message}");
         }
-
     }
-
-
 
 
     public void DeleteProduct()
     {
-
         try
         {
             Console.Clear();
             Console.WriteLine("Delete a Product\n");
             Console.Write("Enter product ID : ");
+
             string search = Console.ReadLine()!.Trim();
             var productsList = _productService.GetAllProductService();
-
             var product = productsList.FirstOrDefault(p => p.Id.ToString() == search);
 
             if (product != null)
             {
-
                 DisplayProductDetails(product);
 
                 Console.WriteLine("Are you sure you want to delete this product? (y/n): ");
@@ -196,40 +182,31 @@ public class ProductMenu
 
                 if (input.Equals("y"))
                 {
-
                     var result = _productService.DeleteProduct(search);
                     ;
                     if (result.Success)
                     {
                         Console.WriteLine("Product successfully deleted.");
                     }
-                }
-                
-                
+                }    
             }
             else
             {
                 Console.WriteLine("No product was found.");
             }
-
                 Console.WriteLine("\nPress any key to continue.");
-                Console.ReadKey();
-            
+                Console.ReadKey();     
         }
         catch (Exception ex)
         {
             Console.WriteLine($"Error: {ex.Message}");
         }
-
     }
 
-    //förbättra koden 
 
     public void UpdateProduct()
     {
-
         try {
-
             var productsList = _productService.GetAllProductService();
 
             Console.Clear();
@@ -239,16 +216,11 @@ public class ProductMenu
 
             if (productsList.Any())
             {
-
-
                 var product = productsList.FirstOrDefault(p => p.Id.ToString() == search);
-
                 if (product != null)
                 {
                     Console.Clear();
                     DisplayProductDetails(product);
-
-
                     Console.WriteLine("Update the product\n");
 
                     Console.Write("Write product name: ");
@@ -268,9 +240,6 @@ public class ProductMenu
                     product.Category.CategoryName = Console.ReadLine()!;
 
                     _productService.Update(product);
-
-
-
                 }
                 else
                 {
@@ -293,12 +262,9 @@ public class ProductMenu
 
     private void DisplayProductDetails(Product product)
     {
-      
         Console.Clear();
         Console.WriteLine("Product ID:".PadRight(19) + $"{product.Id}" + "\nName: ".PadRight(20) + $"{product.ProductName}" + "\nPrice: ".PadRight(20) + $"{product.price:C}" + "\nQuantity: ".PadRight(20) + $"{product.Quantity} {product.Unit}" + "\nCategory ID: ".PadRight(20) + $"{product.Category.CategoryId}" + "\nCategory Name: ".PadRight(20) + $"{product.Category.CategoryName}\n");
     }
-
-
 }   
 
 

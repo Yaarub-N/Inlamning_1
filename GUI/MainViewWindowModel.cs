@@ -15,8 +15,6 @@ namespace GUI
         {
             _serviceProvider = serviceProvider;
             CurrentViewModel = _serviceProvider.GetRequiredService<OverViewModel>();
-            
-           
         }
         [ObservableProperty]
         private ObservableObject currentViewModel;

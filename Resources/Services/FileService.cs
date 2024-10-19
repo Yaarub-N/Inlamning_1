@@ -13,13 +13,9 @@ public class FileService(string path) : IFileService
     {
         try
         {
-
-
-
-            using var sw = new StreamWriter(_path);
+    using var sw = new StreamWriter(_path);
             sw.WriteLine(product);
             return new ResultResponse { Success=true};
-
         }
         catch (Exception) { }
         return new ResultResponse { Success = false };
@@ -27,7 +23,6 @@ public class FileService(string path) : IFileService
 
 
     public string GetFromFile()
-
     {
         try
         {
@@ -41,5 +36,4 @@ public class FileService(string path) : IFileService
         catch (Exception) { }
         return null!;
     }
-
 }

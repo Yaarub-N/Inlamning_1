@@ -20,7 +20,6 @@ public partial class CreateViewModel : ObservableObject
         _serviceProvider = serviceProvider;
         _productService = productService;
 
-
     }
     [ObservableProperty]
     private Product _product = new()
@@ -28,10 +27,8 @@ public partial class CreateViewModel : ObservableObject
         Category = new Category()
     };
 
-
     [ObservableProperty]
     private bool invalidNamn;
-
 
 
     [ObservableProperty]
@@ -40,18 +37,12 @@ public partial class CreateViewModel : ObservableObject
     [RelayCommand]
     public void SaveProduct()
     {
-
- 
-
          try
             {
             InvalidNamn = string.IsNullOrWhiteSpace(Product.ProductName);
             InvalidPrice = Product.price <= 0;
             if (!InvalidNamn && !InvalidPrice) 
     {
-
-
-
         var result = _productService.AddToList(Product);
         if (result.Success)
         {
@@ -61,15 +52,8 @@ public partial class CreateViewModel : ObservableObject
 
                 }
             }
-
-           
         }
-
         catch { }   
-
-
-      
-       
     }
 
     [RelayCommand]

@@ -19,7 +19,6 @@ namespace Resources.Tests
             _fileServiceMock = new Mock<IFileService>();
             _productService = new ProductService(_fileServiceMock.Object);
             _productServiceMock = new Mock<IProductService>();
-
         }
 
         [Fact]
@@ -97,7 +96,7 @@ namespace Resources.Tests
 
         }
 
-        // This mock file service is a solution provided by ChatGPT.
+        // This mock file service is a solution provided by GPT-4-modell.
         // It is used to test product updates and file operations without affecting real files.
         // I am not using Mock in other cases because it wasn't working correctly during testing.
 
@@ -108,7 +107,7 @@ namespace Resources.Tests
 
             public string GetFromFile()
             {
-                
+   
                 return _fileContent;
             }
 
@@ -136,7 +135,6 @@ namespace Resources.Tests
             // Assert
             Assert.True(result.Success);
 
-           
             var updatedProducts = productService.GetAllProductService();
             var updatedProductInList = updatedProducts.FirstOrDefault(p => p.Id == "1");
             Assert.NotNull(updatedProductInList);

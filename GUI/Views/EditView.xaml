@@ -19,7 +19,6 @@
             <TextBlock Text="Product Name" x:Name="TextBlock_Name"/>
             <TextBox Text="{Binding Product.ProductName ,UpdateSourceTrigger=PropertyChanged}" Padding=" 5" Margin="0,5,0,10" KeyUp="TextBox_KeyUp"/>
 
-
             <TextBlock Text="Product price"  x:Name="TextBlock_Price"/>
             <TextBox   Text="{Binding Product.price , UpdateSourceTrigger=PropertyChanged}" Padding=" 5" Margin="0,5,0,10" Name="TextBox_Price" KeyUp="TextBox_Price_KeyUp"/>
 
@@ -34,7 +33,6 @@
 
             <TextBlock Text="Category Id"/>
             <TextBox Text="{Binding Product.Category.CategoryId}" Padding=" 5" Margin="0,5,0,10"/>
-
 
         </StackPanel>
 

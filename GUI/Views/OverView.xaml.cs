@@ -30,12 +30,15 @@ namespace GUI.Views
             if (sender is Button button)
             {
                 MessageBox.Show("MouseUp Event Triggered");
-                // Change the button's background to red
                 button.Background = new SolidColorBrush(Colors.Red);
             }
         }
-
-
-
+        private void Button_MouseDown_1(object sender, MouseButtonEventArgs e)
+        {
+            if (sender is Button button)
+            {
+                MessageBox.Show("MouseDown Event Triggered");
+            }
+        }
     }
 }
