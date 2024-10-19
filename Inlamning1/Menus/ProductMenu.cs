@@ -223,7 +223,7 @@ public class ProductMenu
 
     }
 
-    //förbättra koden 
+    
 
     public void UpdateProduct()
     {
