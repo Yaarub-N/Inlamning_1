@@ -3,7 +3,7 @@ using Resources.Models;
 using Resources.Response;
 using Resources.Services;
 
-namespace Inlamning1.Menus;
+namespace ConsoleApp.Menus;
 
 public class ProductUnitMenu
 {

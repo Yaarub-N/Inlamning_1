@@ -1,6 +1,6 @@
 ﻿using Resources.Services;
 
-namespace Inlamning1.Menus
+namespace ConsoleApp.Menus
 {
     public class Menu
     {

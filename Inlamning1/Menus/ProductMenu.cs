@@ -2,7 +2,7 @@
 using Resources.Models;
 using Resources.Services;
 
-namespace Inlamning1.Menus;
+namespace ConsoleApp.Menus;
 
 public class ProductMenu
 {

@@ -1,5 +1,5 @@
 ﻿
-using Inlamning1.Menus;
+using ConsoleApp.Menus;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Resources.Interface;
@@ -7,7 +7,7 @@ using Resources.Services;
 using System;
 using System.IO;
 
-namespace Inlamning1;
+namespace ConsoleApp;
 
 class Program
 {
